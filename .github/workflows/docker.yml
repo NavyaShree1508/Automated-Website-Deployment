@@ -1,4 +1,4 @@
-name: Automated Docker Deployment
+name: Automated Docker Deployment Workflow
 
 on:
   push:
