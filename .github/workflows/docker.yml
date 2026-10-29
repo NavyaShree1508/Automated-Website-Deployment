@@ -1,0 +1,26 @@
+name: Automated Docker Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t automated-website .
+
+      - name: Stop old container
+        run: docker stop automated-website-container || true
+
+      - name: Remove old container
+        run: docker rm automated-website-container || true
+
+      - name: Run new container
+        run: docker run -d --name automated-website-container -p 8081:80 automated-website
