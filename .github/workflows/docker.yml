@@ -23,4 +23,4 @@ jobs:
         run: docker rm automated-website-container || true
 
       - name: Run new container
-        run: docker run -d --name automated-website-container -p 8081:80 automated-website
+        run: docker run -d --name automated-website-container -p 8080:80 automated-website
