@@ -17,10 +17,20 @@ jobs:
         run: docker build -t automated-website .
 
       - name: Stop old container
-        run: docker stop automated-website-container || true
+        shell: powershell
+        run: |
+          docker stop automated-website-container
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Container was not running."
+          }
 
       - name: Remove old container
-        run: docker rm automated-website-container || true
+        shell: powershell
+        run: |
+          docker rm automated-website-container
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Container does not exist."
+          }
 
       - name: Run new container
         run: docker run -d --name automated-website-container -p 8080:80 automated-website
